@@ -1,0 +1,139 @@
+/**
+* CSS used for the game page.
+* Created by Gianfranco Soto Palma.
+*/
+
+@import url("common.css");
+@import url("popUps.css");
+
+.game-sections {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    max-width: 100%;
+}
+
+.board-container {
+    align-items: center;
+    background-color: var(--thulian-pink);
+    border: 0.10em solid var(--dark-purple);
+    display: flex;
+    flex-direction: column;
+    max-width: 70%;
+    max-height: 100%;
+    margin: 1%;
+}
+
+#game-board {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+    padding: 1%;
+    justify-content: center;
+}
+
+/** Container for images **/
+.board-image-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 0.5%;
+    max-width: 5%;
+    border-style: solid;
+}
+
+/** Container for images **/
+.board-image {
+    max-width: 100%;
+}
+
+.game-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    max-width: 30%;
+    padding: 2%;
+}
+
+.player-inventory {
+    align-items: center;
+    display: flex;
+    flex-flow: wrap;
+    flex-direction: row;
+    gap: 1vh;
+}
+
+.player-cards {
+    display: inline-table;
+    flex-direction: row;
+    justify-content: flex-start; /* Adjust the alignment as needed */
+    align-items: center; /* Adjust the alignment as needed */
+    padding: 0%;
+    overflow-x: auto; /* Add horizontal scrolling */
+    white-space: nowrap; /* Prevent wrapping to a new line */
+}
+
+
+.game-state {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0%;
+    width: 100%;
+    align-items: center;
+}
+
+.my-image-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    max-width: 15%;
+    border-style: solid;
+    margin: 2%;
+    padding: 2%;
+}
+
+.my-image{
+    max-width: 100%;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display:none;
+    background-color: rgba(0 0 0 / 50%);
+    z-index: 9999; /* Asegúrate de que el z-index sea mayor que el del PopUp para que esté detrás */
+  }
+  
+/****************** styles to fit screen sizes ******************/
+
+@media screen and (max-width: 933px) {  
+    .game-sections {
+        flex-direction: column-reverse;
+    }
+    
+    .board-container {
+        max-width: 100%;
+    }
+
+    #game-board {
+        max-width: 100%;
+    }
+
+    .game-info {
+        max-width: 100%;
+    }
+
+    /** Container for images **/
+    .board-image-container {
+        max-width: 20%;
+    }
+
+    .my-image-container {
+        max-width: 20%;
+    }
+}

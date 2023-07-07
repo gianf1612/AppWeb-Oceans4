@@ -1,0 +1,87 @@
+/**
+  * CSS used for the home page.
+  * Created by Derrick Allen Smith.
+  */
+
+  @import url("common.css");
+
+.popup {
+    background-color: var(--mimi-pink);
+    border-color: var(--finn);
+    border-style: solid;
+    display: none;
+    min-width: 30%;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Title centered for pop-ups */
+.popup-title {
+    color: var(--plum);
+    position: relative;
+    text-align: center;
+    margin: 0.8vw;
+    font-size: 2.5vw;
+}
+
+.popup-subtitle {
+    color: var(--sky-magenta);
+    font-size: 2vw;
+    margin: 0%;
+    font-weight: bold;
+}
+
+.code-input {
+    width: 15vw;
+}
+
+/* centered the code input for room */
+.code-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0.6vw;
+    margin-bottom: 1vw;
+}
+
+/* font with bold weight */
+.code-section p {
+    margin: 0;
+    color: var(--finn);
+    font-weight: bold;
+}
+
+.message-content {
+    text-align: center;
+    margin: 0%;
+    color: var(--dark-purple);
+}
+
+.message-content p {
+    margin: 0.8em 4em;
+    color: var(--finn);
+    font-weight: bold;
+}
+
+#popup-finished {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100000;
+}
+
+#exit-popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: 50%;
+}
+
+/* Styles for header on screens smaller than 933px */
+@media screen and (max-width: 933px) {
+    /** Transforms . **/
+    #ranking, #credits {
+        display: flex;
+    }
+}

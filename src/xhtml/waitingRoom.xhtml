@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="Lince, Yo lo vi primero, Muy lentos, ocean's 4" />
+    <meta name="author" content="Cristian Ortega Hurtado" />
+    <title>¡Muy lentos!</title>
+    <link rel="icon" type="image/x-icon" href="../../design/images/icons/favicon.png" />
+    <link href="../css/waitingRoom.css" rel="stylesheet" />
+</head>
+
+<body>
+    <header class="header">
+        <h1 class="header-title">¡Muy lentos!</h1>
+        <img class="game-logo" src="../../design/images/icons/logo.png" alt="logo de la juego" />
+    </header>
+    <section class="configuration">
+        <h2 class="page-title" id="waiting-room-title">Configuración - Sala de Espera </h2>
+        <ul class="configuration-option" id="max-time">
+            <li class="label-icon">
+                <h3 class="option-title">Tiempo máximo</h3>
+                <img class="information-icon" src="../../design/images/Icons/informationIcon.png"
+                    alt="información"></img>
+            </li>
+            <section class="info-pop-up" id="infoMaxTime">
+                <span class="common-text">
+                    Tiempo máximo de una partida en segundos.
+                </span>
+            </section>
+            <li class="input-range-container">
+                <input type="range" class="input-range" id="max-time-range" value="20" min="20" max="120"
+                    step="1">valorTiempoMáximo</input>
+                <p class="option-subtitle" id="max-time-value">
+                    20 s
+                </p>
+            </li>
+        </ul>
+        <ul class="configuration-option" id="cards-per-player">
+            <li class="label-icon">
+                <h3 class="option-title">Fichas por jugador</h3>
+                <img class="information-icon" src="../../design/images/Icons/informationIcon.png"
+                    alt="información"></img>
+            </li>
+            <section class="info-pop-up" id="infoCardsPlayers">
+                <span class="common-text">
+                    Número de fichas en la mano de que cada jugador.
+                    <br />Máximo 20 - Mínimo 5.
+                </span>
+            </section>
+            <li class="input-range-container">
+                <input type="range" class="input-range" id="cards-per-player-range" value="5" min="5" max="20"
+                    step="1">valorFichasPorJugador</input>
+                <p class="option-subtitle" id="cards-per-player-value">
+                    5
+                </p>
+            </li>
+        </ul>
+        <ul class="configuration-option" id="cards-per-round">
+            <li class="label-icon">
+                <h3 class="option-title">Fichas por ronda</h3>
+                <img class="information-icon" src="../../design/images/Icons/informationIcon.png"
+                    alt="información"></img>
+            </li>
+            <section class="info-pop-up" id="infoCardsPerRound">
+                <span class="common-text">
+                    Número de fichas en la manta del juego.<br />
+                    Máximo 400 - mínimo 100.
+                </span>
+            </section>
+            <li class="input-range-container">
+                <input type="range" class="input-range" id="cards-per-round-range" value="100" min="100" max="400"
+                    step="1">valorFichasPorRonda</input>
+                <p class="option-subtitle" id="cards-per-round-value">
+                    100
+                </p>
+            </li>
+        </ul>
+        <ul class="configuration-option" id="adaptation1">
+            <li class="configuration-description">
+                <p class="option-title">Palabras</p>
+                <!-- <p class="option-title">Colores</p> -->
+                <img class="information-icon" src="../../design/images/Icons/informationIcon.png"
+                    alt="información"></img>
+                <p class="option-description" id="adaptation1-info">
+                    Las fichas no tienen la misma imagen de la tarjeta a buscar, si no que poseen la palabra que la
+                    representa.
+                </p>
+            </li>
+            <li class="adaptation-option">
+                <img class="adaption-icon" src="../../design/images/Icons/feature1A.png" alt=""></img>
+                <input type="radio" name="firstAdaptation" id="Adp1a" value="1a" />
+            </li>
+            <li class="adaptation-option">
+                <img class="adaption-icon" src="../../design/images/Icons/feature1B.png" alt=""></img>
+                <input type="radio" name="firstAdaptation" id="Adp1b" value="1b" />
+            </li>
+        </ul>
+        <ul class="configuration-option" id="adaptation2">
+            <li class="configuration-description">
+                <p class="option-title">Colores</p>
+                <img class="information-icon" src="../../design/images/Icons/informationIcon.png"
+                    alt="información"></img>
+                <p class="option-description" id="adaptation2-info">
+                    Las tarjetas del jugador y tarjetas del tablero poseen bordes de diferentes colores, podrían existir
+                    varias tarjetas con la misma imagen pero de diferente color de borde o solo una imagen por tarjeta.
+                </p>
+            </li>
+            <li class="adaptation-option">
+                <img class="adaption-icon" src="../../design/images/Icons/feature2A.png" alt=""></img>
+                <input type="radio" name="secondAdaptation" id="Adp2a" value="2a" />
+            </li>
+            <li class="adaptation-option">
+                <img class="adaption-icon" src="../../design/images/Icons/feature2B.png" alt=""></img>
+                <input type="radio" name="secondAdaptation" id="Adp2b" value="2b" />
+            </li>
+        </ul>
+        <ul class="configuration-option" id="adaptation3">
+            <li class="configuration-description">
+                <p class="option-title">Comodines</p>
+                <img class="information-icon" src="../../design/images/Icons/informationIcon.png"
+                    alt="información"></img>
+                <p class="option-description" id="adaptation3-info">
+                    Acercándose el final del juego, se le aplica una ventaja o desventaja al jugador en último lugar o
+                    al jugador en primer lugar respectivamente.
+                </p>
+            </li>
+            <li class="adaptation-option">
+                <img class="adaption-icon" src="../../design/images/Icons/feature3A.png" alt=""></img>
+                <input type="radio" name="thirdAdaptation" id="Adp3a" value="3a" />
+            </li>
+            <li class="adaptation-option">
+                <img class="adaption-icon" src="../../design/images/Icons/feature3B.png" alt=""></img>
+                <input type="radio" name="thirdAdaptation" id="Adp3b" value="3b" />
+            </li>
+        </ul>
+    </section>
+
+    <section class="players">
+        <h2 class="sub-title">Jugadores</h2>
+        <table class="ranking-table" id="mainPageRanking">
+            <tbody id="player-table-body">
+                <tr class="ranking-row">
+                    <td class="ranking-col">1</td>
+                    <td class="ranking-row">
+                        <img class="profile-image" src="../../design/images/Icons/profile/penguin.png"
+                            alt="Icono de Pinguino" />
+                    </td>
+                    <td class="ranking-col" id="rankingNick">Cristian Ortega</td>
+                    <td class="ranking-col" id="player-points">0 puntos</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <ul class="buttons">
+        <li class="large-button-container"><button class="large-button" id="start-button"
+                type="button">Comenzar</button></li>
+        <li class="large-button-container"><button class="large-button" id="exit-button" type="button">Salir</button>
+        </li>
+    </ul>
+    <article class="popup" id="exit-popup">
+        <h2 class="popup-title">
+            Seguro que quieres abandonar la partida y regresar a la página de inicio?
+        </h2>
+        <ul class="buttons">
+            <li class="small-button-container">
+                <button class="small-button" id="cancel-button" type="button">
+                    Cancelar
+                </button>
+            </li>
+            <li class="small-button-container">
+                <button class="small-button" id="accept-button" type="button">
+                    Aceptar
+                </button>
+            </li>
+        </ul>
+    </article>
+    <script type="module" async="async" src="../js/waitingRoom.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="keywords" content="Lince, Yo lo vi primero, Muy lentos" />
+        <meta name="author" content="Gianfranco Soto Palma" />
+        <title>¡Muy lentos!</title>
+        <link rel="stylesheet" href="../css/game.css" />
+        <link rel="icon" type="image/x-icon" href="../../design/images/icons/favicon.png" />
+    </head>
+    <body>
+        <header class="header">
+            <h1 class="header-title">¡Muy lentos!</h1>
+            <img class="game-logo" src="../../design/images/icons/logo.png" alt="Logo del juego" />
+        </header>
+        <main>
+            <dialog class="popup" id="popup-finished">
+                <h2 class="popup-title">¡Has ganado!</h2>
+                <h2 class="popup-title">¡Has perdido!</h2>
+                <table class="ranking-table">
+                    <tbody id="player-table-body">
+                        <tr class="ranking-row">
+                            <td class="ranking-col">1</td>
+                            <td class="ranking-col">Cristian Ortega</td>
+                            <td class="ranking-col">0 puntos</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ul class="buttons">
+                    <li class="small-button-container">
+                        <button class="small-button" id="continue-button" type="button">
+                            Ir a sala
+                        </button>
+                    </li>
+                    <li class="small-button-container">
+                        <button class="small-button" id="home-button" type="button">
+                            Ir a inicio
+                        </button>
+                    </li>
+                </ul>
+            </dialog>
+            <div id="overlay"></div>
+            <div class="game-sections">
+                <section class="board-container">
+                    <h3 class="section-title">Tablero del juego</h3>
+                    <ul id="game-board">
+                        <!-- Board cards -->
+                    </ul>
+                </section>
+                <section class="game-info">
+                    <h3 class="section-title">Mis fíchas</h3> 
+                    <article class="player-inventory"></article>
+                    <article class="game-state">
+                        <h3 class="section-title">Estado del juego</h3>
+                        <p class="section-subtitle" id="current-time">Tiempo 0:00</p>
+                        <table class="ranking-table" id="mainPageRanking">
+                            <thead>
+                                <tr>
+                                    <th>N*</th>
+                                    <th>Avatar</th>
+                                    <th scope="col">Jugador</th>
+                                    <th scope="col">Puntos</th>
+                                </tr>
+                            </thead>
+                            <tbody id="player-table-body">
+                                <tr class="ranking-row">
+                                    <td class="ranking-col">1</td>
+                                    <td class="ranking-row">
+                                        <img class="profile-image" src="../../design/images/Icons/profile/penguin.png" alt="Icono de Zanahoria" />
+                                    </td>
+                                    <td class="ranking-col" id="rankingNick">Cristian Ortega</td>
+                                    <td class="ranking-col" id="player-points">0 puntos</td>
+                                </tr><!--
+                                <tr class="ranking-row">
+                                        <td class="ranking-col">2</td>
+                                        <td class="ranking-row">
+                                            <img class="profile-image" src="../../design/images/Icons/profile/elephant.png" alt="Icono de Zanahoria" />
+                                        </td>
+                                        <td class="ranking-col">Gianfranco Soto</td>
+                                        <td class="ranking-col">0 puntos</td>
+                                </tr>
+                                <tr class="ranking-row">
+                                        <td class="ranking-col">3</td>
+                                        <td class="ranking-row">
+                                            <img class="profile-image" src="../../design/images/Icons/profile/snake.png" alt="Icono de Zanahoria" />
+                                        </td>
+                                        <td class="ranking-col">Luis Umaña</td>
+                                        <td class="ranking-col">0 puntos</td>
+                                </tr>-->
+                            </tbody>
+                        </table>
+                        <button class="small-button" type="button" id="exit-button">Abandonar partida</button>
+                    </article>
+                </section>
+            </div>
+            <dialog class="popup" id="exit-popup">
+                <h2 class="popup-title">
+                    Seguro que quieres abandonar la partida y regresar a la página de inicio?
+                </h2>
+                <ul class="buttons">
+                    <li class="small-button-container">
+                        <button class="small-button" id="cancel-button" type="button">
+                            Cancelar
+                        </button>
+                    </li>
+                    <li class="small-button-container">
+                        <button class="small-button" id="accept-button" type="button">
+                            Aceptar
+                        </button>
+                    </li>
+                </ul>
+            </dialog>
+        </main>
+        <script type="module" async="async" src="../js/gamePage.js"></script>
+    </body>
+</html>

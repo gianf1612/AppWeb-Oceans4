@@ -1,0 +1,302 @@
+/****************** GLOBAL VARIABLES ******************/
+
+:root {
+    --white-smoke: #F6F3F4;
+    --isabelline: #EEE7E8;
+    --mimi-pink: #E6CCD7;
+    --pink-lavender: #D9A4BC;
+    --thulian-pink: #CC7BA1;
+    --sky-magenta: #C56CA2;
+    --plum: #9A4C95;
+    --finn: #743D74;
+    --violet: #4D2D52;
+    --dark-purple: #100E1B;
+}
+
+/*********************** LABELS ***********************/
+
+/** Removes dot from list item. **/
+ul {
+    list-style-type: none;
+}
+
+/** Style for every element in body. **/
+body {
+    align-items: center;
+    background-color: var(--isabelline);
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    justify-content: center;
+    margin: 0%;
+    min-width: 100%;
+    position: absolute;
+}
+
+/** Website's header. **/
+.header {
+    align-items: center;
+    background-color:var(--finn);
+    color:var(--isabelline);
+    display: flex;
+    flex-direction: row-reverse;
+    font-weight: bold;
+    justify-content: center;
+    min-width: 100%;
+    position: relative;
+}
+
+/** Style for header's title. **/
+.header-title {
+    font-size: 2.5rem;
+    margin: 0%;
+    padding: 1%;
+}
+
+/** Style for header's logo. **/
+.game-logo {
+    max-width: 10%;
+    padding: 1%;
+}
+
+/** Style for elements in main. **/
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100%;
+}
+
+/** Style for page's main title. **/
+.page-title {
+    color: var(--plum);
+    font-size: 2.1rem;
+    font-weight: bold;
+    margin: 1% 0%;
+    text-align: center;
+}
+
+/** Style for main content of page. **/
+.main-content {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    min-width: 100%;
+    position: relative;
+}
+
+/** Style for page's main subtitle. **/
+.sub-title {
+    color: var(--finn);
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 2% 0%;
+}
+
+/** Style for input. **/
+.text-input {
+    background:var(--isabelline);
+    border-color: var(--thulian-pink);
+    border-radius: 0.5rem;
+    border-style: solid;
+    color: var(--plum);
+    font-weight: bold;
+    font-size: 1rem;
+    text-align: center;
+    min-width: 99%;
+    padding: 2%;
+}
+
+/** When input is clicked. **/
+.text-input:focus {
+    background: var(--mimi-pink);
+    border-color: var(--plum);
+    outline: 5% solid var(--plum);
+}
+
+/** Style for placeholder text shown in input box. **/
+::placeholder {
+    color: var(--pink-lavender);
+    font-weight: bold;
+}
+
+/** Style for container of buttons. **/
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0.5%;
+    padding: 0%;
+    min-width: 100%;
+}
+
+/** Style for container for text and information icon. **/
+.label-icon {
+    align-items: center;
+    background-color: var(--plum);
+    border-color: var(--plum);
+    border-radius: 0.6rem;
+    border-style: solid;
+    display: flex;
+    justify-content: center;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    min-width: 100%;
+    min-height: 10%;
+}
+
+/** Style for information icon. **/
+.information-icon {
+    cursor: help;
+    max-height: 70%;
+}
+
+/** Style for style for all buttons in this page. **/
+button {
+    background-color: var(--plum);
+    border-color: var(--plum);
+    border-radius: 0.6rem;
+    border-style: solid;
+    color: var(--isabelline);
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    min-width: 100%;
+}
+
+/** Animations for buttons **/
+button:hover {
+    background-color: var(--finn);
+}
+
+/** Style for small buttons. **/
+.small-button {
+    font-size: 1rem;
+    min-width: 100%;
+}
+
+/** Style for style for small buttons. **/
+.small-button-container {
+    min-width: 31.5%;
+    margin-left: 0.1%;
+    margin-right: 0.1%;
+}
+
+/** Style for style for large buttons. **/
+.large-button-container {
+    min-width: 31.5%;
+    margin-left: 0.1%;
+    margin-right: 0.1%;
+}
+
+/** Style for every large button. **/
+.large-button {
+    font-size: 1rem;
+    padding: 0.5%;
+}
+
+
+/* border of the table */
+.ranking-table {
+    border-collapse: collapse;
+    max-width: 100%;
+    margin: 1%;
+}
+
+/** Style for ranking row. **/
+.ranking-row {
+    border-color: var(--plum);
+    border-style: solid;
+    text-align: center;
+}
+
+/** Style for ranking col. **/
+.ranking-col {
+    border-color: var(--plum);
+    border-style: solid;
+    color: var(--violet);
+}
+
+/** Style for every title. **/
+.section-title {
+    color: var(--violet);
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-top: 0%;
+    margin-bottom: 2%;
+}
+
+/** Style for every subtitle. **/
+.section-subtitle {
+    color: var(--violet);
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 2% 0%;
+}
+
+/** Style for normal text. **/
+.common-text {
+    color: var(--plum);
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/** Style for lists. **/
+.list {
+    display: flex;
+    flex-direction: column;
+    margin: 0%;
+    padding: 0%;
+    align-items: stretch;
+}
+
+/** Style for list item. **/
+.list-item {
+    color: var(--plum);
+}
+
+/** Style for list item text. **/
+.item-text {
+    color: var(--violet);
+    margin: 0%;
+    padding: 0%;
+}
+
+/** Style for every avatar image. **/
+.profile-image {
+    max-width: 25%;
+}
+
+/* Change the width of the cell with the image. */
+.ranking-row td:nth-child(2) {
+    width: 20%;
+}
+
+/* ****************** MEDIA QUERIES ****************** */
+
+/* Styles for header on screens smaller than 933px */
+@media ( max-width <= 933px ) {
+    /** New size for header title. **/
+    .header-title {
+        font-size: 1.7rem;
+    }
+
+    /** New size for logo. **/
+    .game-logo {
+        max-width: 10%;
+    }
+
+    /** New size for page title. **/
+    .page-title {
+        font-size: 1.5rem;
+    }
+
+    .large-button-container {
+        min-width: 30%;
+    }
+    
+    .large-button {
+        min-height: 30%;
+    }
+}

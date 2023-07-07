@@ -1,0 +1,120 @@
+/**
+  * CSS used for the home page.
+  * Created by Jimena Gdur Vargas.
+  */
+
+  @import url("common.css");
+  @import url("popUps.css");
+  
+  /****************** INPUT AND BUTTONS ******************/
+  
+  .buttons {
+      max-width: 50%;
+      min-width: 0%;
+  }
+  
+  .small-button {
+      min-width: 20%;
+  }
+  
+  /** Style for container for input and buttons. **/
+  .input-buttons { 
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 2%;
+      min-width: 20%;
+  }
+  
+  /** Animations for buttons **/
+  .label-icon:hover{
+      background-color: var(--finn);
+  }
+  
+  .label-icon:hover button {
+      background-color: var(--finn);
+      border-color: var(--finn);
+  }
+  
+  .redirect-buttons {
+      cursor: default;
+  }
+  
+  /****************** TAB SECTION ******************/
+  
+  /** Style for container of buttons for tabs. **/
+  .tab-links {
+      display: flex;
+      justify-content: center;
+      min-width: 100%;
+      padding: 0%;
+      margin: 0.1%;
+  }
+  
+  /** Style for container of content options. **/
+  .content-options {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      padding: 0%;
+      margin: 0.1%;
+      min-width: 100%;
+      text-align: center;
+  }
+  
+  /** Style for every content box in tab section. **/
+  .tab-content {
+      border-color: var(--plum);
+      border-radius: 0.6rem;
+      border-style: solid;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0.1%;
+      padding: 2%;
+      min-width: 90%;
+  }
+  
+  /** Style for validation message. **/
+  #nickname-validation{
+      color: var(--finn);
+      
+      /** Hides nick validation (avoids changes when displaying) **/
+      visibility: hidden; 
+  }
+  
+  /** Style for video. **/
+  video {
+      min-width: 100%;
+  }
+  
+  #ranking, #credits {
+      display: none;
+  }
+  
+  .section-container {
+      margin: 2%;
+  }
+  
+  /* Styles for header on screens smaller than 933px */
+  @media (max-width <= 933px) {
+      /** Style for container for input and buttons. **/
+      .input-buttons { 
+          margin-bottom: 4%;
+      }
+  
+      /** Removes container of buttons for tabs. **/
+      .tab-links {
+          display: none;
+      }
+  
+      /** Style for developers section of credits. **/
+      #credits {
+          flex-direction: column;
+      }
+  
+      /** Shows all contents. **/
+      #ranking, #credits {
+          display: flex;
+      }
+  }

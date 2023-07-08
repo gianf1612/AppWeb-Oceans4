@@ -106,9 +106,33 @@
     height: 100%;
     display:none;
     background-color: rgba(0 0 0 / 50%);
-    z-index: 9999; /* Asegúrate de que el z-index sea mayor que el del PopUp para que esté detrás */
+    z-index: 9999;
+}
+  
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
   }
   
+main {
+    height: 100%;
+    overflow-y: auto;
+}
+  
+section.board-container {
+    height: calc(100% - 40px); /* Substract header space */
+    overflow: auto;
+}
+  
+header {
+    height: 40px;
+}
+  
+main > .game-sections {
+    height: calc(100% - 40px); /* Resta el espacio del encabezado */
+}
+    
 /****************** styles to fit screen sizes ******************/
 
 @media screen and (max-width: 933px) {  

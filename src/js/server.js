@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 const express = require('express');
 const http = require('http');
 const WebSocket = require('ws');
@@ -8,25 +9,31 @@ const wss = new WebSocket.Server({ server });
 
 const sessionList = new Map();
 const dictRoom = new Map();
+// <roomId, ListPlayers>
 const playerList = [];
+const roomList = [];
 // sessionList.set('id', value);
 // sessionList.get('id');
 
 const position = sessionList.length;
 
 class ServerController {
-  // constructor(){}
+  // constructor() {
+  //   this.roomList = [];
+  // }
+
+  // instructionReader(instruction, player) {
+  //   console.log('inside instructionReader');
+  //   if (instruction === 'newGame') {
+  //     this.newGame(player);
+  //   }
+  // }
 
   /*
   * Controls the newGame request
   * Param: Data with the request info -> playerId, nickname, roomId, role
   */
   newGame(data) {
-    console.log(`New game requested by ${JSON.stringify(data)}`);
-    console.log(`data.playerId ${data.playerId}`);
-    console.log(`data.nickname ${data.nickname}`);
-    console.log(`data.roomID ${data.roomId}`);
-
     // Add info of the player in the session list
     sessionList[data.playerId] = data.nickname;
 
@@ -37,9 +44,10 @@ class ServerController {
     } else {
       const list = [data.playerId];
       dictRoom.set(data.roomId, list);
+      roomList.push(data.roomId);
     }
 
-    console.log(`Dictionary of rooms: ${dictRoom.get(data.roomId)}`);
+    console.log(`User in room ${data.roomId}: ${dictRoom.get(data.roomId)}`);
   }
 
   /*
@@ -47,11 +55,52 @@ class ServerController {
   * Param: Data with the request info -> playerId, nickname, roomId, role
   */
   joinRoom(data) {
-    console.log(`New game requested by ${JSON.stringify(data)}`);
+    console.log(`Join to room requested by ${JSON.stringify(data)}`);
 
     // Adds new player to the list of players
     sessionList[data.playerId] = data.nickname;
-    this.newGame(data);
+    this.addPlayerToRoom(data.roomId, data.playerId);
+
+    console.log(`User in room ${data.roomId}: ${dictRoom.get(data.roomId)}`);
+  }
+
+  /*
+  * Adds player to the room
+  */
+  addPlayerToRoom(roomId, playerId) {
+    if (dictRoom[roomId]) {
+      const list = dictRoom.get(roomId);
+      list.push(playerId);
+    } else {
+      const list = [playerId];
+      dictRoom.set(roomId, list);
+    }
+  }
+
+  /*
+  * Return result of roomId check
+  */
+  checkRoomId(ws, data) {
+    let isRoom = false;
+    if (roomList[data.roomId]) {
+      isRoom = true;
+    }
+    const message = {
+      instruction: 'checkRoomId',
+      result: isRoom,
+    };
+
+    ws.send(JSON.stringify(message));
+  }
+
+  start(ws, roomId) {
+    const message = {
+      instruction: 'start',
+      // list: dictRoom.get(roomId),
+      list: sessionList,
+    };
+
+    ws.send(JSON.stringify(message));
   }
 }
 
@@ -83,13 +132,26 @@ wss.on('connection', (ws) => {
     console.log(`event recieved: ${event}`);
     console.log(`event message: ${msg.instruction}`);
 
-    if (serverController[msg.instruction]) {
-      console.log(`event recieved: ${event}`);
-      console.log(`event message: ${msg.instruction}`);
-      serverController[msg.instruction](msg.player);
-    } else {
-      // Error handler
-      console.log(`Error using ${event}`);
+    switch (msg.instruction) {
+      case 'joinRoom':
+        serverController.joinRoom(msg.player);
+        break;
+
+      case 'newGame':
+        serverController.newGame(msg.player);
+        break;
+
+      case 'checkRoomId':
+        serverController.checkRoomId(ws, msg.player);
+        break;
+
+      case 'start':
+        serverController.start(ws, msg.roomId);
+        break;
+
+      default:
+        console.log(`Error using ${event}`);
+        break;
     }
   });
 });
@@ -101,3 +163,5 @@ wss.on('close', (ws) => {
 server.listen(port, () => {
   console.log(`Server is listening on ${port}`);
 });
+
+// export default 'server.js';

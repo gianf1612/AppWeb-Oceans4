@@ -1,14 +1,16 @@
 /* ******************* Imports ******************* */
 // Obtaing information from last page
-export const userID = sessionStorage.getItem('id');
-export const nickname = sessionStorage.getItem('nickname');
-export let link = sessionStorage.getItem(`waitingRoom.xhtml?id=${userID}&nickname=${encodeURIComponent(nickname)}`);
-console.log(userID);
-console.log(nickname);
+// export const userID = sessionStorage.getItem('id');
+// export const nickname = sessionStorage.getItem('nickname');
+// export let link = sessionStorage.getItem(
+//   `waitingRoom.xhtml?id=${userID}&nickname=${encodeURIComponent(nickname)}`
+// );
+// console.log(userID);
+// console.log(nickname);
 
 /* ******************* Creating constants for script ******************* */
 // Start game button
-const startButton = document.getElementById('start-button');
+export const startButton = document.getElementById('start-button');
 // Pop Up used to exit waiting room.
 // const popUpClose = document.getElementById('popUpClose');
 // Container for all player table's rows.
@@ -55,7 +57,6 @@ const option2b = document.getElementById('Adp2b');
 const option3a = document.getElementById('Adp3a');
 // Option 3b radio button.
 const option3b = document.getElementById('Adp3b');
-
 /* ********************* Functions used on script ********************* */
 /*
 document.addEventListener('DOMContentLoaded', () => {
@@ -89,27 +90,30 @@ function handleNewPlayer() {
  */
 function removePlayer() {
   if (playerTable) {
-    const firstColumn = '<tr class="ranking-row">'
-                            + '<td class="ranking-row">#</td>'
-                            + '<td class="ranking-row">Imagen</td>'
-                            + '<td class="ranking-row">Apodo</td>'
-                            + '<td class="ranking-row">Puntaje</td>'
-                            + '</tr>';
-    const player1 = '<tr class="ranking-row">'
-                        + '<td class="ranking-col"> 1 </td>'
-                        + '<td class="ranking-col"> avatar </td>'
-                        + '<td class="ranking-col"> mariaPerez </td>'
-                        + '<td class="ranking-col"> 250 puntos'
-                        + '</td>'
-                        + '</tr>';
+    const firstColumn =
+      '<tr class="ranking-row">' +
+      '<td class="ranking-row">#</td>' +
+      '<td class="ranking-row">Imagen</td>' +
+      '<td class="ranking-row">Apodo</td>' +
+      '<td class="ranking-row">Puntaje</td>' +
+      '</tr>';
+    const player1 =
+      '<tr class="ranking-row">' +
+      '<td class="ranking-col"> 1 </td>' +
+      '<td class="ranking-col"> avatar </td>' +
+      '<td class="ranking-col"> mariaPerez </td>' +
+      '<td class="ranking-col"> 250 puntos' +
+      '</td>' +
+      '</tr>';
 
-    const player2 = '<tr class="ranking-row">'
-                        + '<td class="ranking-col"> 2 </td>'
-                        + '<td class="ranking-col"> avatar </td>'
-                        + '<td class="ranking-col"> juanPerez </td>'
-                        + '<td class="ranking-col"> 100 puntos'
-                        + '</td>'
-                        + '</tr>';
+    const player2 =
+      '<tr class="ranking-row">' +
+      '<td class="ranking-col"> 2 </td>' +
+      '<td class="ranking-col"> avatar </td>' +
+      '<td class="ranking-col"> juanPerez </td>' +
+      '<td class="ranking-col"> 100 puntos' +
+      '</td>' +
+      '</tr>';
 
     playerTable.innerHTML = firstColumn + player1 + player2;
   }
@@ -135,7 +139,8 @@ function chooseMaxTime() {
   if (maxTimeValue) {
     maxTimeValue.innerHTML = `${time} s`;
     sessionStorage.setItem('maxTime', time);
-  } console.log(time);
+  }
+  console.log(time);
 }
 
 /**
@@ -277,7 +282,6 @@ function handleAdp2a() {
  *
  */
 function handleAdp2b() {
-  console.log('aqui');
   /* if(message.type === "chooseAdp2b") {
       // document.getElementById('Adp2b').check == true;
   } else {
@@ -314,11 +318,25 @@ function handleAdp3b() {
  * Starts game for all players.
  */
 function startGame() {
-  // default settings
-  sessionStorage.setItem('cardsPerRound', 100);
-  sessionStorage.setItem('maxTime', 20);
-  sessionStorage.setItem('cardsPerPlayer', 5);
-
+  // default settings IF USER DOESNT CHOOSE
+  if (sessionStorage.getItem('cardsPerRound') === 'null') {
+    sessionStorage.setItem('cardsPerRound', 100);
+  }
+  if (sessionStorage.getItem('maxTime') === 'null') {
+    sessionStorage.setItem('maxTime', 20);
+  }
+  if (sessionStorage.getItem('cardsPerPlayer') === 'null') {
+    sessionStorage.setItem('cardsPerPlayer', 5);
+  }
+  if (adp1 === 'null') {
+    chooseAdp1a();
+  }
+  if (adp2 === 'null') {
+    chooseAdp2a();
+  }
+  if (adp3 === 'null') {
+    chooseAdp3a();
+  }
   // Saves current client info and redirects
   link = `game.xhtml?id=${userID}&nickname=${encodeURIComponent(nickname)}`;
   sessionStorage.setItem('link', link);
@@ -329,7 +347,7 @@ function startGame() {
  * All player get in game
  */
 function handleStartGame() {
-  window.location.href = './game.xhtml';
+
 }
 
 /*
@@ -378,45 +396,109 @@ function cardsPerRound() {
 function infoAdapPopUp(adaptation) {
   if (infoIconClicked) {
     document.getElementById(
-      adaptation.srcElement.nextElementSibling.id,
+      adaptation.srcElement.nextElementSibling.id
     ).style.visibility = 'visible';
     infoIconClicked = false;
   } else {
     document.getElementById(
-      adaptation.srcElement.nextElementSibling.id,
+      adaptation.srcElement.nextElementSibling.id
     ).style.visibility = 'hidden';
     infoIconClicked = true;
   }
 }
 
+function showRoomId(value) {
+  let paragraph = document.getElementById('waiting-room-title').innerHTML;
+  paragraph += `#${value}`;
+  document.getElementById('waiting-room-title').innerHTML = paragraph;
+}
+
+function loadPage() {
+  // showRoomId(sessionStorage.getItem('roomID'));
+
+  // Adds name to the ranking table
+  if (document.getElementById('rankingNick')) {
+    const rankingNickname = document.getElementById('rankingNick');
+    console.log(`rankingNickname ${rankingNickname}`);
+    this.nickname = sessionStorage.getItem('nickname');
+    rankingNickname.innerHTML = this.nickname;
+
+    // Event Listeners
+    maxTimeRange.addEventListener('change', chooseMaxTime);
+    cardsPerPlayerRange.addEventListener('change', chooseCardsPerPlayer);
+    cardsPerRoundRange.addEventListener('change', chooseCardsPerRound);
+    imgIcon[0].addEventListener('click', maxTimePopUp);
+    imgIcon[1].addEventListener('click', cardsPerPlayer);
+    imgIcon[2].addEventListener('click', cardsPerRound);
+    imgIcon[3].addEventListener('click', infoAdapPopUp, infoAdapt1);
+    imgIcon[4].addEventListener('click', infoAdapPopUp, infoAdapt2);
+    imgIcon[5].addEventListener('click', infoAdapPopUp, infoAdapt3);
+
+    option1a.addEventListener('click', chooseAdp1a);
+    option1b.addEventListener('click', chooseAdp1b);
+    option2a.addEventListener('click', chooseAdp2a);
+    option2b.addEventListener('click', chooseAdp2b);
+    option3a.addEventListener('click', chooseAdp3a);
+    option3b.addEventListener('click', chooseAdp3b);
+
+    showRoomId(sessionStorage.getItem('roomID'));
+  }
+
+  // if (sessionStorage.getItem('typeUser')) {
+
+  // }
+}
+
 /* *********************** Listeners for buttons *********************** */
 
-startButton.addEventListener('click', startGame);
+// if (maxTimeRange) {
+//   maxTimeRange.addEventListener('change', chooseMaxTime);
+// }
 
-maxTimeRange.addEventListener('change', chooseMaxTime);
-cardsPerPlayerRange.addEventListener('change', chooseCardsPerPlayer);
-cardsPerRoundRange.addEventListener('change', chooseCardsPerRound);
+// if (cardsPerPlayerRange) {
+//   cardsPerPlayerRange.addEventListener('change', chooseCardsPerPlayer);
+// }
 
-imgIcon[0].addEventListener('click', maxTimePopUp);
-imgIcon[1].addEventListener('click', cardsPerPlayer);
-imgIcon[2].addEventListener('click', cardsPerRound);
-imgIcon[3].addEventListener('click', infoAdapPopUp, infoAdapt1);
-imgIcon[4].addEventListener('click', infoAdapPopUp, infoAdapt2);
-imgIcon[5].addEventListener('click', infoAdapPopUp, infoAdapt3);
+// if (cardsPerRoundRange) {
+//   cardsPerRoundRange.addEventListener('change', chooseCardsPerRound);
+// }
 
-option1a.addEventListener('click', chooseAdp1a);
-option1b.addEventListener('click', chooseAdp1b);
-option2a.addEventListener('click', chooseAdp2a);
-option2b.addEventListener('click', chooseAdp2b);
-option3a.addEventListener('click', chooseAdp3a);
-option3b.addEventListener('click', chooseAdp3b);
+// imgIcon[0].addEventListener('click', maxTimePopUp);
+// imgIcon[1].addEventListener('click', cardsPerPlayer);
+// imgIcon[2].addEventListener('click', cardsPerRound);
+// imgIcon[3].addEventListener('click', infoAdapPopUp, infoAdapt1);
+// imgIcon[4].addEventListener('click', infoAdapPopUp, infoAdapt2);
+// imgIcon[5].addEventListener('click', infoAdapPopUp, infoAdapt3);
+
+// option1a.addEventListener('click', chooseAdp1a);
+// option1b.addEventListener('click', chooseAdp1b);
+// option2a.addEventListener('click', chooseAdp2a);
+// option2b.addEventListener('click', chooseAdp2b);
+// option3a.addEventListener('click', chooseAdp3a);
+// option3b.addEventListener('click', chooseAdp3b);
 
 /*
  *  When page loads get nickname
-*/
-window.addEventListener('load', () => {
-  const rankingNickname = document.getElementById('rankingNick');
-  console.log(rankingNickname);
-  rankingNickname.innerHTML = nickname;
-});
+ */
+// window.addEventListener('load', () => {
+console.log(sessionStorage.getItem('cardsPerRound'));
+//   const rankingNickname = document.getElementById('rankingNick');
+//   console.log(rankingNickname);
+//   rankingNickname.innerHTML = nickname;
+sessionStorage.setItem('cardsPerRound', null);
+sessionStorage.setItem('maxTime', null);
+sessionStorage.setItem('cardsPerPlayer', null);
+// });
+
+export const userID = sessionStorage.getItem('id');
+export let nickname = sessionStorage.getItem('nickname');
+export let link = sessionStorage.getItem(
+  `waitingRoom.xhtml?id=${userID}&nickname=${encodeURIComponent(nickname)}`
+);
+
+window.addEventListener('load', loadPage);
+if (startButton) {
+  startButton.addEventListener('click', startGame);
+}
+
 export default 'waitingRoom.js';

@@ -78,33 +78,41 @@ function createRoomId() {
 /*
  * Add the roomId into the waitingRoom page
  */
-function showRoomId(value) {
+export function showRoomId(value) {
   let paragraph = document.getElementById('waiting-room-title').innerHTML;
   paragraph += `#${value}`;
   console.log(paragraph);
   document.getElementById('waiting-room-title').innerHTML = paragraph;
 }
 
+export function roomIdInput() {
+  return codePopup.getInputRoomCode();
+}
+
+/*
+* Gathered info of the user joining to a session
+*/
+export function joinSession() {
+  const nickname = document.getElementById('nickname').value;
+  const userID = generateUniqueID();
+  const roomID = createRoomId();
+  return { nickname, userID, roomID };
+}
+
 /*
  * Send a message to the server to create a new room with the host as the client
  * that pressed the create room button and with the nickname entered.
  */
-export function createSession(/* instruction */) {
+export function createSession() {
   const nickname = document.getElementById('nickname').value;
   const userID = generateUniqueID();
-  // const roomID = generateUniqueID();
   const roomID = createRoomId();
-
-  //if (instruction === 'join') {
-  //  roomID = document.getElementById().value;
-  // }
-
-  
 
   // save data on sessionStorage
   sessionStorage.setItem('id', userID);
   sessionStorage.setItem('nickname', nickname);
   sessionStorage.setItem('roomID', roomID);
+  
   // Builds URL with userID, roomID and nickname
   const link = `waitingRoom.xhtml?id=${userID}&nickname=${encodeURIComponent(nickname)}&roomID=${roomID}`;
   window.location.href = link;

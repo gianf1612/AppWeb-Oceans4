@@ -12,8 +12,9 @@ export const joinButton = document.getElementById('join-button');
 export const popUp = document.getElementById('popup-code');
 // Input of the code popUp
 export const codeInput = document.getElementById('popUpInput');
-// Code popUp input message result
-export const inputMsg = document.getElementById('msgCode');
+// Result from server about roomId checking
+// eslint-disable-next-line import/no-mutable-exports
+export let inputMsgResult = false;
 
 /* ********************* Functions used on script ********************* */
 
@@ -24,21 +25,32 @@ export function showCodePopUp() {
   popUp.style.display = 'flex';
 }
 
+export function getInputRoomCode() {
+  return popupInput.value;
+}
+
+export function inputResult(result) {
+  this.inputMsgResult = result;
+}
+
 /**
  * Verifies if given code is correct
  */
-export function verifyCode() {
-  const msg = document.getElementById('room-validation-text');
-  if (popupInput.value !== '1234') {
-    msg.innerHTML = 'Sala no existe';
-    joinButton.style.cursor = 'pointer';
-    joinButton.disabled = true;
-  } else {
-    msg.innerHTML = 'Sala encontrada';
-    joinButton.style.cursor = 'default';
-    joinButton.disabled = false;
-  }
-}
+// export function verifyCode() {
+//   const msg = document.getElementById('room-validation-text');
+//   // if (popupInput.value !== '1234') {
+//   // if (!listRooms[popupInput.value]) {
+//   if (inputMsgResult == false) {
+//     msg.innerHTML = 'Sala no existe';
+//     joinButton.style.cursor = 'pointer';
+//     joinButton.disabled = true;
+//   } else {
+//     msg.innerHTML = 'Sala encontrada';
+//     joinButton.style.cursor = 'default';
+//     joinButton.disabled = false;
+//   }
+//   return popupInput.value;
+// }
 
 /**
  * Closes popup when button is clicked.
@@ -53,9 +65,19 @@ export function cancelPopUp() {
  * Joins given room when button is clicked.
  */
 export function joinRoom() {
-  if (joinButton) {
-    // code validation
+  // verifyCode();
+  joinButton.disabled = false;
+  // eslint-disable-next-line eqeqeq
+  if (popupInput.value !== '') {
+    const msg = document.getElementById('room-validation-text');
+    msg.innerHTML = 'Sala encontrada';
+    joinButton.style.cursor = 'default';
+    joinButton.disabled = false;
+    sessionStorage.setItem('roomID', popupInput.value);
+    sessionStorage.setItem('typeUser', 'user');
     window.location.href = './waitingRoom.xhtml';
+  } else {
+    console.log('error in join Room');
   }
 }
 
@@ -66,10 +88,10 @@ if (showPopUpButton) {
 if (cancelButton) {
   cancelButton.addEventListener('click', cancelPopUp);
 }
-if (joinButton) {
-  joinButton.addEventListener('click', joinRoom);
-}
-if (popupInput) {
-  popupInput.addEventListener('input', verifyCode);
-}
+// if (joinButton) {
+//   joinButton.addEventListener('click', joinRoom);
+// }
+// if (popupInput) {
+//   popupInput.addEventListener('input', verifyCode);
+// }
 export default 'codePopUp.js';

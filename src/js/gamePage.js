@@ -14,13 +14,15 @@ export const time = sessionStorage.getItem('maxTime');
 export const adp1 = sessionStorage.getItem('adp1');
 export const adp2 = sessionStorage.getItem('adp2');
 export const adp3 = sessionStorage.getItem('adp3');
-
-console.log(userID);
+console.log(sessionStorage.getItem('maxTime'));
+console.log(sessionStorage.getItem('cardsPerPlayer'));
+console.log(sessionStorage.getItem('cardsPerRound'));
+console.log("id"+userID);
 console.log(nickname);
 console.log("time"+time);
-console.log(adp1);
-console.log(adp2);
-console.log(adp3);
+console.log("ADP1 "+adp1);
+console.log("ADP2 "+adp2);
+console.log("ADP3 "+adp3);
 /* ******************* Creating constants for script ******************* */
 // Contains all game board cards
 const gameBoard = document.getElementById('game-board');
@@ -152,6 +154,17 @@ function TimesUp() {
   // popUp
   const popUpFinished = document.getElementById('popup-finished');
   popUpFinished.style.display = 'flex';
+  // change nick
+  if (document.getElementById('rankingNick')) {
+    const rankingNickname = document.getElementById('rankingNick');
+    rankingNickname.innerHTML = nickname;
+  }
+  if (document.getElementById('player-points')) {
+    const playerPoints = document.getElementById('player-points');
+    const points = sessionStorage.setItem('player-points', playerPoints);
+    playerPoints.innerHTML = points;
+  }
+
   // gamePage finished game PopUp
   const continueButton = document.getElementById('continue-button');
   continueButton.addEventListener('click', (event) => {
@@ -168,25 +181,17 @@ function TimesUp() {
 }
 
 /*
- * update time remaining
- * in current round
+ * Method that creates an instance of card
+ * and add it to the corresponding dictionary
  */
-function updateTime() {
-  let remainingTime = time;
-  const x = setInterval(() => {
-    remainingTime -= 1;
-    const seconds = remainingTime;
-    document.getElementById('current-time').innerHTML = `Tiempo: ${seconds}s`;
-    if (remainingTime <= 5 && adp3 === '3B') {
-      applyBlur();
-    }
-    if (remainingTime <= 0) {
-      clearInterval(x);
-      document.getElementById('current-time').innerHTML = 'Se acabó';
-      dissableBlur();
-      TimesUp();
-    }
-  }, 1000);
+function setCardDict(card, dictionary, key, type = 'boardCard') {
+  dictionary[key] = new Card(
+    card.alt,
+    card.imgSrc,
+    card.name,
+    card.color,
+    type,
+  );
 }
 
 /*
@@ -227,19 +232,6 @@ function match() {
     // firstCard = null;
     // secondCard = null;
   }
-}
-/*
- * Method that creates an instance of card
- * and add it to the corresponding dictionary
- */
-function setCardDict(card, dictionary, key, type = 'boardCard') {
-  dictionary[key] = new Card(
-    card.alt,
-    card.imgSrc,
-    card.name,
-    card.color,
-    type,
-  );
 }
 
 /*
@@ -382,18 +374,44 @@ function cutLettersFromWords() {
     // Cambiar las letras por "_"
     let modifiedWord = originalWord;
     for (let i = 0; i < lettersToChange; i += 1) {
-      const index = indexesToChange[i];
-      modifiedWord = `${modifiedWord.substring(0, index)}_${modifiedWord.substring(index + 1)}`;
+      const y = indexesToChange[i];
+      modifiedWord = `${modifiedWord.substring(0, y)}_${modifiedWord.substring(y + 1)}`;
     }
     wordElement.innerText = modifiedWord;
   }
 }
-
 /*
  * More cards effect
  */
 function moreCardsEffect() {
-
+  addCardsToMyHand(3);
+  cutLettersFromWords();
+}
+/*
+ * update time remaining
+ * in current round
+ */
+function updateTime() {
+  let remainingTime = time;
+  const x = setInterval(() => {
+    remainingTime -= 1;
+    const seconds = remainingTime;
+    document.getElementById('current-time').innerHTML = `Tiempo: ${seconds}s`;
+    if (remainingTime === 10) {
+      // check variation of adaptation
+      if (adp3 === '3A') {
+        moreCardsEffect();
+      } else if (adp3 === '3B') {
+        applyBlur();
+      }
+    }
+    if (remainingTime <= 0) {
+      clearInterval(x);
+      document.getElementById('current-time').innerHTML = 'Se acabó';
+      dissableBlur();
+      TimesUp();
+    }
+  }, 1000);
 }
 
 /*
@@ -412,23 +430,12 @@ function loadPage() {
   setGameParams();
   addCardToBoard(cardsPerRound);
   addCardsToMyHand(cardsPerPlayer);
-
-  // changeImagesToWords();
-  // cutLettersFromWords();
   // check variation of first adaptation
   if (adp1 === '1A') {
     changeImagesToWords();
   } else if (adp1 === '1B') {
     changeImagesToWords();
     cutLettersFromWords();
-  }
-
-  // check variation of first adaptation
-  if (adp3 === '3A') {
-    moreCardsEffect();
-  } else if (adp3 === '3B') {
-    // este ya se hace update time
-    // applyBlur();
   }
 }
 

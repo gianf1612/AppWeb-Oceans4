@@ -1,32 +1,9 @@
 import * as index from './index.js';
 import * as codePopUp from './codePopUp.js';
 import Player from './player.js';
-
-// window.addEventListener('load', main);
-
-// // Main controls calls for events
-// function main() {
-//   // create new socket
-//   let socket = new WebSocket('ws://localhost:8081');
-
-//   socket.addEventListener('open', () => {
-//     console.log('Connected to server');
-//     // console.log(index.createRoomBtn);
-//     // console.log(index);
-//   });
-// }
-
-class ClientController {
-  showRoomId(value) {
-    let paragraph = document.getElementById('waiting-room-title').innerHTML;
-    paragraph += `#${value}`;
-    console.log(paragraph);
-    document.getElementById('waiting-room-title').innerHTML = paragraph;
-  }
-}
+import * as waitingRoom from './waitingRoom.js';
 
 const socket = new WebSocket('ws://localhost:8081');
-const clientController = new ClientController();
 
 socket.addEventListener('open', () => {
   console.log('Connected to server');
@@ -34,7 +11,26 @@ socket.addEventListener('open', () => {
   // console.log(index);
 });
 
-socket.addEventListener('message', (event) => {});
+/*
+* Handles all the messages from the server
+*/
+socket.addEventListener('message', (event) => {
+  const msg = JSON.parse(event);
+
+  switch (msg.instruction) {
+    case 'checkRoomId':
+      codePopUp.inputResult(msg.result);
+      break;
+
+    case 'start':
+      startGame(msg.result);
+      break;
+
+    default:
+      console.log(`Error using ${event}`);
+      break;
+  }
+});
 
 socket.addEventListener('close', () => {
   console.log('Disconnected from server');
@@ -52,22 +48,20 @@ if (index.createRoomBtn) {
     if (event.target.id === 'create-room-button') {
       const info = index.createSession();
 
-      // index.showRoomId(roomID);
-      clientController.showRoomId(info.roomID);
+      console.log(`Info recieved from client's side: ${info}`);
 
       // Create player
       const player = new Player(info.nickname, 'admin');
+      player.roomId = info.roomID;
 
       const message = {
         instruction: 'newGame',
-        // name: info,
         player,
       };
       console.log(`createRoomBtn message: ${message}`);
-      const text = JSON.stringify(message);
 
       // Sends message to server
-      socket.send(text);
+      socket.send(JSON.stringify(message));
     }
   });
 }
@@ -93,14 +87,37 @@ if (codePopUp.cancelButton) {
   });
 }
 
+/*
+ * Checks if roomId typed exits
+ */
+function validateRoomId(roomId, connection) {
+  console.log(`Requested to check the roomId ${roomId}`);
+  const player = new Player(null, 'user', roomId);
+  const message = {
+    instruction: 'checkRoomId',
+    player,
+  };
+
+  connection.send(JSON.stringify(message));
+}
+
 // User joining to a room
 if (codePopUp.joinButton) {
   codePopUp.joinButton.addEventListener('click', (event) => {
     if (event.target.id === 'join-button') {
-      const sessionData = index.createSession();
+      // const sessionData = index.createSession();
+      const sessionData = index.joinSession();
+
+      // retrieve the roomId typed
+      const input = index.roomIdInput();
+
+      // validates with the server if roomId exits
+      validateRoomId(input, socket);
+      // const roomId = codePopUp.joinRoom();
 
       // Create player
       const player = new Player(sessionData.nickname);
+      player.roomId = input;
 
       const message = {
         instruction: 'joinRoom',
@@ -108,8 +125,34 @@ if (codePopUp.joinButton) {
         player,
       };
 
+      console.log(`message to sent ${message}`);
+
+      socket.send(JSON.stringify(message));
+
+      codePopUp.joinRoom();
+    }
+  });
+}
+
+if (waitingRoom.startButton) {
+  waitingRoom.startButton.addEventListener('click', (event) => {
+    if (event.target.id === 'start-button') {
+      const message = {
+        instruction: 'start',
+        roomId: waitingRoom.sessionStorage.getItem('roomID'),
+      };
+
+      console.log(`message to sent ${message}`);
+
       socket.send(JSON.stringify(message));
     }
+  });
+}
+
+function startGame(list) {
+  list.forEach((player) => {
+    console.log(`Player ${player}`);
+    player.waitingRoom.startGame();
   });
 }
 
